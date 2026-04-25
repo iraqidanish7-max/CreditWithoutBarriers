@@ -1,0 +1,1119 @@
+:root{
+  --bg: #f3f6fb;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --text: #0b1220;
+  --accent: #2563eb;
+  --accent-2: #6a11cb;
+  --radius: 12px;
+}
+
+/* Reset / base */
+*{box-sizing:border-box}
+body{
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(180deg,#f7fafc 0%, #eef2f7 100%);
+  color:var(--text);
+  margin:0;
+  overflow-x:hidden;
+}
+
+/* Header / Nav */
+.site-header{
+  background:white;
+  position:sticky;
+  top:0;
+  z-index:40;
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+  transition: background .35s ease, box-shadow .35s ease, backdrop-filter .35s ease;
+}
+.site-header.scrolled{
+  background: linear-gradient(90deg, rgba(2,6,23,0.95), rgba(16,24,40,0.95));
+  color:#fff;
+  box-shadow: 0 12px 30px rgba(2,6,23,0.28);
+  backdrop-filter: blur(6px);
+}
+.brand{font-weight:700; font-size:1.25rem; text-decoration:none; color:var(--text)}
+.brand .accent{color:var(--accent-2)}
+.brand:hover{ transform: translateY(-3px); text-shadow: 0 6px 24px rgba(106,17,203,0.12) }
+
+/* Nav links + underline */
+nav .nav-link{
+  position:relative;
+  padding:8px 10px;
+  color:var(--muted);
+  text-decoration:none;
+  transition: color .18s ease;
+}
+nav .nav-link::after{
+  content:"";
+  position:absolute;
+  left:50%; transform:translateX(-50%) scaleX(0);
+  bottom:-6px; height:3px; width:60%;
+  background: linear-gradient(90deg,var(--accent-2),var(--accent));
+  border-radius:3px;
+  transition: transform .28s cubic-bezier(.2,.9,.25,1), opacity .18s ease;
+  opacity:0;
+}
+nav .nav-link:hover{ color:var(--accent) }
+nav .nav-link:hover::after{ transform:translateX(-50%) scaleX(1); opacity:1 }
+nav .nav-link.active-link::after{ transform:translateX(-50%) scaleX(1); opacity:1; height:4px; box-shadow:0 6px 18px rgba(106,17,203,0.12) }
+
+/* Mobile menu */
+.mobile-menu{display:none; padding:12px; background:#fff; border-top:1px solid rgba(0,0,0,0.08)}
+.mobile-menu.open{display:block}
+.mobile-menu a{ padding:10px 0; display:block; color:var(--text); text-decoration:none }
+
+/* Hero split */
+.hero-split .card{ border-radius:12px }
+
+/* Carousel */
+.carousel-container{ height:420px; max-height:420px; border-radius:12px; overflow:hidden; position:relative; }
+.carousel-inner, .carousel-item{ height:100% }
+.carousel-bg{ position:absolute; inset:0; background-size:cover; background-position:center; background-repeat:no-repeat; filter:saturate(1.05) contrast(1.05) }
+.carousel-overlay{ position:absolute; inset:0; pointer-events:none; background: linear-gradient(to bottom right, rgba(0,0,0,0.18), rgba(0,0,0,0.05)); z-index:1 }
+
+/* Cards & features */
+.card{ background:var(--card); border-radius:var(--radius); border:0; box-shadow:0 8px 24px rgba(2,6,23,0.06) }
+.feature-card{ background:var(--card); border-radius:12px; box-shadow:0 6px 18px rgba(2,6,23,0.04) }
+
+/* Animated border (applies when JS adds .animated-border) */
+.card.animated-border{ position:relative; z-index:0; overflow:visible }
+.card.animated-border::before{
+  content:""; position:absolute; inset:-1px; z-index:-1; border-radius:inherit; padding:2px;
+  background: linear-gradient(60deg,#6a11cb,#2575fc,#10b981,#ffd166);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: bordershift 4.5s linear infinite;
+}
+@keyframes bordershift{ 0%{filter:hue-rotate(0deg)} 50%{filter:hue-rotate(80deg)} 100%{filter:hue-rotate(0deg)} }
+
+/* Buttons + ripple */
+.btn{ position:relative; overflow:hidden; transition: transform .18s ease, box-shadow .18s ease }
+.btn-primary{ background:linear-gradient(90deg,var(--accent-2), var(--accent)); border:0; color:white; font-weight:600; border-radius:10px; transition: transform .12s, box-shadow .12s }
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 30px rgba(37,99,235,0.12) }
+.btn-outline-primary{ border-color:var(--accent); color:var(--accent) }
+
+.btn .ripple{ position:absolute; border-radius:50%; background:rgba(255,255,255,0.55); transform:scale(0); animation:ripple-effect .6s linear; pointer-events:none }
+@keyframes ripple-effect{ to{ transform:scale(4); opacity:0 } }
+
+/* Card hover lift */
+.card, .feature-card{ transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, filter .22s ease; will-change:transform,box-shadow }
+.card:hover, .feature-card:hover{ transform:translateY(-8px); box-shadow:0 20px 40px rgba(10,25,60,0.12); filter:saturate(1.06) }
+
+/* Scroll reveal */
+.reveal{ opacity:0; transform:translateY(18px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.9,.25,1); will-change:opacity,transform }
+.reveal.is-revealed{ opacity:1; transform:translateY(0) }
+
+/* Footer */
+.footer-wave{ display:block; width:100%; line-height:0 }
+.site-footer{ position:relative; overflow:hidden; background:#021427 }
+.site-footer .muted{ transition: transform .45s ease }
+.site-footer:hover .muted{ transform:translateY(-3px) }
+
+
+
+/* Helpers */
+.min-h-140{ min-height:140px }
+.muted{ color:var(--muted) }
+.fa-list{ list-style:none; padding-left:0 }
+.fa-list li{ padding:8px 0; border-bottom:1px dashed rgba(0,0,0,0.04) }
+/* page background for interior pages (nice, continuous with homepage) */
+.page-bg{
+  /* soft diagonal gradient base */
+  background:
+    linear-gradient(180deg, rgba(247,250,252,1) 0%, rgba(238,242,247,1) 100%),
+    repeating-linear-gradient(
+      135deg,
+      rgba(255,255,255,0.02) 0 2px,
+      rgba(0,0,0,0) 2px 8px
+    );
+  /* subtle vignette so center content pops */
+  position: relative;
+  overflow: hidden;
+}
+.page-bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background: radial-gradient(circle at 50% 10%, rgba(255,255,255,0.06), rgba(255,255,255,0) 20%),
+   radial-gradient(circle at 50% 90%, rgba(2,6,23,0.03), rgba(2,6,23,0) 25%);
+  mix-blend-mode: overlay;
+  z-index:0;
+}
+
+/* ensure page content sits above overlay (cards already have z-index) */
+.page-bg > section,
+.page-bg .container,
+.page-bg .card { position: relative; z-index: 1; }
+
+/* small tweak: slightly increase contrast for hero image card */
+.page-bg .card.p-0 img { filter: saturate(1.02) contrast(1.03); }
+
+/* optional: alternate accent stripe at top for continuity with homepage */
+.page-bg .top-accent {
+  height: 6px;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+  border-radius: 6px;
+  margin-bottom: 18px;
+}
+/* password-eye */
+/* Password field wrapper */
+.pwd-wrap {
+  position: relative;
+  width: 100%;
+}
+
+/* Input gets padding on right so button fits inside */
+.pwd-wrap input {
+  padding-right: 44px !important;
+}
+
+/* Eye button inside input */
+.pwd-toggle-btn {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  height: 26px;
+  width: 26px;
+  padding: 0;
+  color: #555;
+}
+.pwd-toggle-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ===== Lender – Dashboard page (new unified style) ===== */
+
+.lender-dashboard {
+  max-width: 1200px;
+}
+
+/* hero card – same style family as borrower hero, but text tuned for lender */
+.lender-hero-card {
+  border-radius: 18px;
+  padding: 18px 20px;
+  background: radial-gradient(circle at top left, rgba(191, 219, 254, 0.7), transparent 55%),
+              radial-gradient(circle at bottom right, rgba(254, 202, 255, 0.7), transparent 55%),
+              #ffffff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.lender-hero-card .hero-heading {
+  color: #111827;
+}
+
+.lender-hero-card .hero-subtitle {
+  color: var(--muted);
+}
+
+/* stats chips on hero right side */
+.lender-hero-card .hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.lender-hero-card .stat-card {
+  min-width: 140px;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  background: #111827;
+  color: #f9fafb;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+.lender-hero-card .stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.lender-hero-card .stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* main card for borrower requests */
+.lender-requests-card {
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  background-color: #ffffff;
+}
+
+/* table wrapper & base */
+.lender-requests-table-wrapper {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.lender-requests-table {
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background-color: #ffffff;
+}
+
+/* header gradient with readable text */
+.lender-requests-table thead tr {
+  background: linear-gradient(90deg, #e5e7eb, #c7d2fe);
+}
+
+.lender-requests-table thead th {
+  border-bottom: 1px solid rgba(148, 163, 255, 0.4);
+  padding: 10px 12px;
+  color: #0f172a;
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* body cells */
+.lender-requests-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  color: #111827;
+}
+
+/* zebra rows + hover */
+.lender-requests-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.lender-requests-table tbody tr {
+  transition:
+    background 0.2s ease,
+    transform 0.16s ease,
+    box-shadow 0.2s ease;
+}
+
+.lender-requests-table tbody tr:hover {
+  background: #eef2ff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.15);
+}
+
+.lender-requests-table tbody tr:hover td {
+  color: #020617;
+}
+
+/* empty state text */
+.lender-requests-card .empty-state {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  color: #6b7280;
+}
+
+.lender-requests-card .empty-state .empty-hint {
+  font-size: 0.9rem;
+}
+/* ===== Gradient Border Wrapper for Cards ===== */
+.gradient-card-wrapper {
+  padding: 2px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #a5b4fc, #c084fc);
+}
+
+.gradient-card-wrapper > .inner-card {
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+}
+/* ===========================================
+   LENDER – MY OFFERS PAGE (FULL REWORKED UI)
+   Matches: lender_dashboard, make_offer,
+            borrower dashboard, view_offers
+   =========================================== */
+
+.lender-offers-page {
+  max-width: 1200px;
+}
+
+/* -------- Hero Card -------- */
+.lender-offers-hero-card {
+  border-radius: 18px;
+  padding: 18px 20px;
+  background: radial-gradient(circle at top left, rgba(191, 219, 254, 0.7), transparent 55%),
+              radial-gradient(circle at bottom right, rgba(254, 202, 255, 0.7), transparent 55%),
+              #ffffff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.lender-offers-hero-card .hero-heading {
+  color: #111827;
+}
+
+.lender-offers-hero-card .hero-subtitle {
+  color: var(--muted);
+}
+
+/* Hero stats chips */
+.lender-offers-hero-card .hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.lender-offers-hero-card .stat-card {
+  min-width: 140px;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  background: #111827;
+  color: #f9fafb;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+.lender-offers-hero-card .stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.lender-offers-hero-card .stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* -------- Main Card -------- */
+.lender-offers-card {
+  border-radius: 18px;
+  background-color: #ffffff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+}
+
+/* Card header spacing text */
+.lender-offers-card h4 {
+  color: #111827;
+}
+
+/* -------- Table Wrapper -------- */
+.lender-offers-table-wrapper {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* -------- Table Base -------- */
+.lender-offers-table {
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background-color: #ffffff;
+}
+
+/* -------- Table Header (Gradient + Readable Text) -------- */
+.lender-offers-table thead tr {
+  background: linear-gradient(90deg, #e5e7eb, #c7d2fe);
+}
+
+.lender-offers-table thead th {
+  border-bottom: 1px solid rgba(148, 163, 255, 0.4);
+  padding: 10px 12px;
+  color: #0f172a;
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* -------- Table Cells -------- */
+.lender-offers-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  color: #111827;
+}
+
+/* zebra rows */
+.lender-offers-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+/* hover effect */
+.lender-offers-table tbody tr {
+  transition:
+    background 0.2s ease,
+    transform 0.16s ease,
+    box-shadow 0.2s ease;
+}
+
+.lender-offers-table tbody tr:hover {
+  background: #eef2ff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.15);
+}
+
+.lender-offers-table tbody tr:hover td {
+  color: #020617;
+}
+
+/* -------- Empty State -------- */
+.lender-offers-card .empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+.lender-offers-card .empty-state .empty-hint {
+  font-size: 0.9rem;
+}
+/* ===== Make Offer page (Lender) ===== */
+
+.make-offer-page {
+  max-width: 1100px;
+}
+
+/* Hero card – same family as lender/borrower hero cards */
+.make-offer-hero-card {
+  border-radius: 18px;
+  padding: 18px 20px;
+  background: radial-gradient(circle at top left, rgba(191, 219, 254, 0.7), transparent 55%),
+              radial-gradient(circle at bottom right, rgba(254, 202, 255, 0.7), transparent 55%),
+              #ffffff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.make-offer-hero-card .hero-heading {
+  color: #111827;
+  text-shadow: none;
+}
+.make-offer-hero-card .hero-subtitle {
+  color: var(--muted);
+}
+
+/* Main card styling */
+.make-offer-card {
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  background-color: #ffffff;
+}
+
+/* Borrower details list */
+.make-offer-borrower li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.35);
+  font-size: 0.9rem;
+}
+.make-offer-borrower li:last-child {
+  border-bottom: none;
+}
+.make-offer-borrower .label {
+  color: var(--muted);
+  margin-right: 12px;
+}
+.make-offer-borrower .value {
+  font-weight: 500;
+  color: #0f172a;
+}
+
+/* Form spacing */
+.make-offer-form .form-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #0f172a;
+}
+.make-offer-form .form-control {
+  font-size: 0.9rem;
+}
+/* ===== Admin Dashboard ===== */
+
+.admin-dashboard-page {
+  max-width: 1200px;
+}
+
+/* hero text */
+.admin-dashboard-page .hero-heading {
+  color: #111827;
+  text-shadow: none;
+}
+.admin-dashboard-page .hero-subtitle {
+  color: var(--muted);
+}
+/* Make the Offers card slightly wider so all columns breathe */
+.admin-dashboard-page .admin-offers-card {
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
+/* Spread Borrower Requests card same as Offers card */
+.admin-dashboard-page .admin-requests-card {
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
+
+/* stat cards */
+.admin-stat-card {
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.10);
+  background: #ffffff;
+}
+.admin-stat-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.admin-stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+.admin-stat-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-left: 4px;
+}
+
+/* main admin cards */
+.admin-card {
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.16);
+}
+
+/* admin tables */
+.admin-table-wrapper {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.admin-requests-table,
+.admin-offers-table {
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background-color: #ffffff;
+}
+.admin-dashboard-page .admin-users-card {
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
+
+/* ===== Admin – Dashboard hero card ===== */
+
+.admin-dashboard-page {
+  max-width: 1200px;
+}
+
+/* hero card – same family as borrower/lender hero cards */
+.admin-hero-card {
+  border-radius: 18px;
+  padding: 18px 20px;
+  background: radial-gradient(circle at top left, rgba(191, 219, 254, 0.7), transparent 55%),
+              radial-gradient(circle at bottom right, rgba(254, 202, 255, 0.7), transparent 55%),
+              #ffffff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.admin-hero-card .hero-heading {
+  color: #111827;
+}
+
+.admin-hero-card .hero-subtitle {
+  color: var(--muted);
+}
+
+.admin-hero-meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* reuse hero stats chips style */
+.admin-hero-card .hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.stat-card {
+  min-width: 130px;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  background: #111827;
+  color: #f9fafb;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+/* header gradient for both tables */
+.admin-requests-table thead tr,
+.admin-offers-table thead tr {
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+}
+.admin-requests-table thead th,
+.admin-offers-table thead th {
+  border-bottom: 1px solid rgba(148, 163, 255, 0.4);
+  padding: 10px 12px;
+  color: #f9fafb;
+  font-weight: 600;
+  white-space: nowrap;
+}
+/* ===== ADMIN TABLE HEADER FIX (Better Visibility) ===== */
+
+.admin-table thead tr {
+  background: linear-gradient(90deg, #e5e7eb, #c7d2fe); /* soft gradient */
+}
+
+.admin-table thead th {
+  color: #0f172a !important;        /* DARK text */
+  font-weight: 700 !important;      /* bolder */
+  font-size: 0.8rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 10px 12px !important;
+  border-bottom: 1px solid rgba(148, 163, 255, 0.4);
+}
+/* body cells */
+.admin-requests-table td,
+.admin-offers-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  color: #111827;
+}
+
+/* zebra + hover */
+.admin-requests-table tbody tr:nth-child(even),
+.admin-offers-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.admin-requests-table tbody tr,
+.admin-offers-table tbody tr {
+  transition:
+    background 0.2s ease,
+    transform 0.16s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-requests-table tbody tr:hover,
+.admin-offers-table tbody tr:hover {
+  background: #eef2ff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+}
+
+.admin-requests-table tbody tr:hover td,
+.admin-offers-table tbody tr:hover td {
+  color: #020617;
+}
+/* ===== Borrower – Dashboard page ===== */
+
+.borrower-dashboard {
+  max-width: 1200px;
+}
+
+/* hero text override (same vibe as lender pages) */
+.borrower-dashboard .hero-heading {
+  color: #111827;
+  text-shadow: none;
+}
+
+.borrower-dashboard .hero-subtitle {
+  color: var(--muted);
+}
+
+/* hero/top card with stats – light style, similar to your design */
+.borrower-hero-card {
+  border-radius: 18px;
+  padding: 18px 20px;
+  background: radial-gradient(circle at top left, rgba(191, 219, 254, 0.7), transparent 55%),
+              radial-gradient(circle at bottom right, rgba(254, 202, 255, 0.7), transparent 55%),
+              #ffffff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+/* stats on the right in hero */
+.borrower-hero-card .hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.borrower-hero-card .stat-card {
+  min-width: 130px;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  background: #111827;
+  color: #f9fafb;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+.borrower-hero-card .stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.borrower-hero-card .stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* main cards – mimic lender-offers-card style */
+.borrower-form-card,
+.borrower-requests-card {
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  background-color: #ffffff;
+}
+
+/* table wrapper */
+.borrower-requests-table-wrapper {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* table base */
+.borrower-requests-table {
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background-color: #ffffff;
+}
+
+/* header gradient (use same accent vars) */
+.borrower-requests-table thead tr {
+  /* Softer but clear gradient */
+  background: linear-gradient(90deg, #e5e7eb, #c7d2fe);
+}
+
+.borrower-requests-table thead th {
+  border-bottom: 1px solid rgba(148, 163, 255, 0.4);
+  padding: 10px 12px;
+  color: #0f172a;            /* dark text for readability */
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+/* body cells */
+.borrower-requests-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  color: #111827;
+}
+
+/* zebra rows */
+.borrower-requests-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+/* hover effect */
+.borrower-requests-table tbody tr {
+  transition:
+    background 0.2s ease,
+    transform 0.16s ease,
+    box-shadow 0.2s ease;
+}
+
+.borrower-requests-table tbody tr:hover {
+  background: #eef2ff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.15);
+}
+
+.borrower-requests-table tbody tr:hover td {
+  color: #020617;
+}
+
+/* small muted text */
+.borrower-dashboard .small-muted {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+/* ===== Borrower – View Offers page ===== */
+
+.borrower-offers-page {
+  max-width: 1200px;
+}
+
+/* reuse hero card look from dashboard */
+.borrower-offers-hero-card {
+  border-radius: 18px;
+  padding: 18px 20px;
+  background: radial-gradient(circle at top left, rgba(191, 219, 254, 0.7), transparent 55%),
+              radial-gradient(circle at bottom right, rgba(254, 202, 255, 0.7), transparent 55%),
+              #ffffff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.borrower-offers-hero-card .hero-heading {
+  color: #111827;
+}
+
+.borrower-offers-hero-card .hero-subtitle {
+  color: var(--muted);
+}
+
+/* stats on the right in hero */
+.borrower-offers-hero-card .hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.borrower-offers-hero-card .stat-card {
+  min-width: 130px;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  background: #111827;
+  color: #f9fafb;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+.borrower-offers-hero-card .stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.borrower-offers-hero-card .stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* main offers card – same style as borrower-requests-card */
+.borrower-offers-card {
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  background-color: #ffffff;
+}
+
+/* table wrapper & table – same pattern as borrower-requests-table */
+.borrower-offers-table-wrapper {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.borrower-offers-table {
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background-color: #ffffff;
+}
+
+/* header – readable light gradient */
+.borrower-offers-table thead tr {
+  background: linear-gradient(90deg, #e5e7eb, #c7d2fe);
+}
+
+.borrower-offers-table thead th {
+  border-bottom: 1px solid rgba(148, 163, 255, 0.4);
+  padding: 10px 12px;
+  color: #0f172a;
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* body cells */
+.borrower-offers-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  color: #111827;
+}
+
+/* zebra + hover */
+.borrower-offers-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.borrower-offers-table tbody tr {
+  transition:
+    background 0.2s ease,
+    transform 0.16s ease,
+    box-shadow 0.2s ease;
+}
+
+.borrower-offers-table tbody tr:hover {
+  background: #eef2ff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.15);
+}
+
+.borrower-offers-table tbody tr:hover td {
+  color: #020617;
+}
+
+/* ===================== ABOUT PAGE STYLES ===================== */
+
+.about-page .about-cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ZIGZAG LAYOUT */
+.about-page .gradient-card-wrapper.zig-left,
+.about-page .gradient-card-wrapper.zig-right {
+  max-width: 72%;
+}
+
+/* Left side: start at extreme left */
+.about-page .gradient-card-wrapper.zig-left {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Right side: start at extreme right */
+.about-page .gradient-card-wrapper.zig-right {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* Card height & inner styling */
+.about-card {
+  border-radius: 1.25rem;
+  min-height: 260px;          /* Taller cards */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Card image styling */
+.about-card-img {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  max-height: 320px;
+  object-fit: cover;
+}
+
+/* Base animation state: hidden + shifted */
+.about-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Direction-specific offsets */
+.about-animate.slide-left {
+  transform: translateX(-40px);
+}
+
+.about-animate.slide-right {
+  transform: translateX(40px);
+}
+
+/* When card comes into view */
+.about-animate.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slight hover lift */
+.about-card:hover {
+  transform: translateY(-4px);
+  transition: transform 0.2s ease;
+}
+
+/* Ensure hover works after in-view */
+.about-animate.in-view .about-card:hover,
+.about-animate.in-view:hover .about-card {
+  transform: translateY(-4px);
+}
+
+/* Video & map wrappers */
+.about-video-wrapper iframe,
+.about-map-wrapper iframe {
+  border-radius: 0.9rem;
+}
+
+/* Responsive: on small screens, make them full width & centered */
+@media (max-width: 767.98px) {
+  .about-page .gradient-card-wrapper.zig-left,
+  .about-page .gradient-card-wrapper.zig-right {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .about-card-img {
+    min-height: 200px;
+    max-height: 240px;
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width:991px){ .site-header.scrolled .brand{ color:#fff } }
+@media (max-width:767px){
+  .carousel-container{ height:300px; max-height:300px }
+  .d-md-flex{ display:none !important }
+}
+@media (min-width: 1200px) {
+  .admin-dashboard-page .admin-offers-card {
+    margin-left: -4rem;
+    margin-right: -4rem;
+  }
+}
+@media (min-width: 1200px) {
+  .admin-dashboard-page .admin-offers-card {
+    margin-left: -6rem;
+    margin-right: -6rem;
+  }
+}
+@media (min-width: 1200px) {
+  .admin-dashboard-page .admin-requests-card {
+    margin-left: -4rem;
+    margin-right: -4rem;
+  }
+}
+
+@media (min-width: 1500px) {
+  .admin-dashboard-page .admin-requests-card {
+    margin-left: -6rem;
+    margin-right: -6rem;
+  }
+}
+/* Spread User Management card same as other admin cards */
+
+@media (min-width: 1200px) {
+  .admin-dashboard-page .admin-users-card {
+    margin-left: -4rem;
+    margin-right: -4rem;
+  }
+}
+
+@media (min-width: 1500px) {
+  .admin-dashboard-page .admin-users-card {
+    margin-left: -6rem;
+    margin-right: -6rem;
+  }
+}
