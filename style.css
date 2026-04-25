@@ -1056,6 +1056,8 @@ nav .nav-link.active-link::after{ transform:translateX(-50%) scaleX(1); opacity:
   border-radius: 0.9rem;
 }
 
+
+
 /* Responsive: on small screens, make them full width & centered */
 @media (max-width: 767.98px) {
   .about-page .gradient-card-wrapper.zig-left,
@@ -1116,4 +1118,23 @@ nav .nav-link.active-link::after{ transform:translateX(-50%) scaleX(1); opacity:
     margin-left: -6rem;
     margin-right: -6rem;
   }
+}
+
+/* ===== FINAL STICKY FOOTER FIX ===== */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.site-footer {
+  margin-top: auto;
 }

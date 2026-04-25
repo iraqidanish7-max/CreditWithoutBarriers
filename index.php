@@ -20,6 +20,7 @@
 include 'header.php'; 
  ?>
 <!-- HERO SPLIT -->
+ <main class="main-content">
 <section class="container hero-split my-4">
   <div class="row align-items-center g-4">
 
@@ -151,7 +152,7 @@ include 'header.php';
     </div>
   </section>
 </main>
-
+</main>
 <?php 
 include 'footer.php';
 ?>
